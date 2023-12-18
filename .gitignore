@@ -1,0 +1,56 @@
+# Maven
+target/
+
+# IntelliJ IDEA
+.idea/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Cucumber
+rerun.txt
+output/
+
+# TestNG
+test-output/
+
+# Logs
+logs/
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Compiled class file
+*.class
+
+# Maven-specific files
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/
+
+# Cucumber reports
+cucumber-html-reports/
+
+# WebDriver binaries
+webdrivermanager.log
+
+# IntelliJ IDEA files
+*.iml
+*.iws
+*.ipr
+
+# Visual Studio Code files
+.vscode/
+
+# Mac-specific files
+.idea_modules/
+.DS_Store
