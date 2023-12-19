@@ -1,8 +1,6 @@
 package com.quaspareparts.qa_gm3.utilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.safari.SafariDriver;
 
 import java.time.Duration;
   /*
@@ -22,41 +20,33 @@ import java.time.Duration;
 
 public class Driver {
     // create a private static WebDriver object
-    private static WebDriver driver;
-
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     //singleton driver yapmak için constructorımızı private yapıyoruzki bu classın dışından new anahtarıyla
     // driver object üretilemesin. Peki kim driver üretecek? getDriver() metodumuz.
     private Driver() { //constructor Driver
     }
-
     // create getDriver method to create and initiate the driver instance
     public static WebDriver getDriver() {
-        if (driver == null) {
+        if (driver.get() == null) {
             //bu şekilde sadece bir driver object üretilmesini garantiliyoruz. daha önce driver üretilmişse null olmayacaktır ve
             //bu if bloğu çalışmayacak ve yeni driver üretilmeyecektir. Var olan (daha önce üretilmiş olan) driverı return edecektir.
             switch (ConfigReader.getProperty("browser")) {
                 case "chrome":
-                    driver = new ChromeDriver();
+                    driver.set(new ChromeDriver());
                     break;
-                case "firefox":
+               /* case "firefox":
                     driver = new FirefoxDriver();
                     break;
                 case "safari":
                     driver = new SafariDriver();
-                    break;
+                    break;*/
             }
         }
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-        return driver;
-    }//getDriver ends here
+        driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.get().manage().window().maximize();
+        return driver.get();
+    }
 
-    // create a closeDriver method to close the driver
     public static void closeDriver() {
-        //   quit the driver id it is pointing chromedriver, firefoxdriver....
-        if (driver != null) {
-            driver.quit();
-            driver = null;
-        }
     }
 }
