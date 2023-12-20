@@ -10,6 +10,9 @@ public class RemoteUnitsPage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
+    @FindBy(id = "loginButton")
+    public WebElement loginButton;
+
     @FindBy(id = "username")
     public WebElement username;
 
@@ -18,6 +21,15 @@ public class RemoteUnitsPage {
 
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement signInButton;
+
+    @FindBy(xpath = "(//span[@class='fw-bold'])[1]")
+    public WebElement businessOwnerButton;
+
+    @FindBy(xpath = "//a[contains(text(),'Profile')]")
+    public WebElement profileButton;
+
+    @FindBy(xpath = "(//button[@id='loginButton'])[2]")
+    public WebElement accountManagement;
 
     @FindBy(id = "link5")
     public WebElement remoteUnits;

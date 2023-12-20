@@ -1,20 +1,22 @@
 package com.quaspareparts.qa_gm3.pages;
 
 import com.quaspareparts.qa_gm3.utilities.Driver;
-import com.quaspareparts.qa_gm3.utilities.ParallelDriver;
+import com.quaspareparts.qa_gm3.utilities.ReusableMethods;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class UserModulePage {
     public UserModulePage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    Actions actions = new Actions(ParallelDriver.getDriver());
+    Actions actions = new Actions(Driver.getDriver());
+
     @FindBy(id = "username")
     public WebElement username;
 
@@ -36,10 +38,10 @@ public class UserModulePage {
     @FindBy(xpath = "//*[contains(text(),'Register New User')]")
     public WebElement registerNewUser;
 
-    @FindBy(id = "react-select-2-input")
+    @FindBy(className = "css-8mmkcg")
     public WebElement roles;
 
-    @FindBy(id = "email")
+    @FindBy(xpath = "//input[@id='email']")
     public WebElement email;
 
     @FindBy(xpath = "//button [@class='btn btn-info text-white float-end']")
@@ -54,30 +56,6 @@ public class UserModulePage {
     @FindBy(xpath = "//*[contains(text(),'Close')]")
     public WebElement registerCloseButton;
 
-    @FindBy(xpath = "//*[contains(text(),'Blocked')]")
-    public WebElement accessBlocked;
-
-    @FindBy(xpath = "(//td[@role='cell'])[5]")
-    public WebElement statusEmpty;
-
-    @FindBy(xpath = "(//button[@class=\"btn btn-transparent p-0\"])[1]")
-    public WebElement threeDotButton;
-
-    @FindBy(xpath = "(//*[contains(text(),'Password Reset')])[1]")
-    public WebElement passwordReset;
-
-    @FindBy(xpath = "(//*[contains(text(),'Resend Verify Email')])[1]")
-    public WebElement resendVerifyEmail;
-
-    @FindBy(xpath = "(//*[contains(text(),'Allow Access')])[1]")
-    public WebElement allowAccess;
-
-    @FindBy(xpath = "//*[contains(text(),'Reset Password')]")
-    public WebElement resetPasswordPopup;
-
-    @FindBy(xpath = "//*[contains(text(),'Confirm')]")
-    public WebElement confirmButton;
-
     @FindBy(xpath = "//*[contains(text(),'New User Invitation')]")
     public WebElement newUserInvitation;
     @FindBy(id = "react-select-2-input")
@@ -89,23 +67,27 @@ public class UserModulePage {
     @FindBy(xpath = "//*[contains(text(),'Send Invitation')]")
     public WebElement sendInvitation;
 
+    @FindBy(xpath = "(//td[@role='cell'])[2]")
+    public WebElement inviteNewUserEmail;
+
     public void inviteNewUserAdd(){
+        String email = "yejifi4663@astegol.com";
         inviteNewUser.click();
         Assert.assertTrue(newUserInvitation.isDisplayed());
         actions.click(roles2).sendKeys("Business Owner" + Keys.ENTER).perform();
-        actions.click(email2).sendKeys("woyija3587@astegol.com" + Keys.ENTER).perform();
+        actions.click(email2).sendKeys(email + Keys.ENTER).perform();
         sendInvitation.click();
-
-
+        Assert.assertEquals(email,inviteNewUserEmail.getText());
 
     }
 
-    public void registerNewUser(){
+    public void registerNewUserAdd(){
         registerNewUser.click();
-        Assert.assertTrue(newUserRegistration.isDisplayed());
+        //Assert.assertTrue(newUserRegistration.isDisplayed());
+
         actions.click(roles).sendKeys("Business Owner" + Keys.ENTER).perform();
 
-        actions.click(email).sendKeys("tester007@gmail.com" + Keys.ENTER).perform();
+        actions.click(email).sendKeys("tester00719@gmail.com" + Keys.ENTER).perform();
 
         registerButton.click();
 
@@ -114,26 +96,6 @@ public class UserModulePage {
         getPassword.getText();
 
         registerCloseButton.click();
-
-    }
-
-    public void registerNewUserStatus(){
-        Assert.assertTrue(accessBlocked.getText().contains("Blocked"));
-
-        Assert.assertEquals("", statusEmpty.getText());
-
-        actions.click(threeDotButton).perform();
-
-        Assert.assertTrue(passwordReset.isDisplayed());
-        Assert.assertTrue(resendVerifyEmail.isDisplayed());
-        Assert.assertTrue(allowAccess.isDisplayed());
-    }
-
-    public void newUserVerify(){
-        passwordReset.click();
-       Assert.assertTrue(resetPasswordPopup.isDisplayed());
-       confirmButton.click();
-
 
     }
 

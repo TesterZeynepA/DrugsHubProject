@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = "com/quaspareparts/qa_gm3/stepdefinitions",
-        tags = "@",
+        tags = "@newUsersCreate",
         dryRun = false
 )
 public class US_017_Runner {
